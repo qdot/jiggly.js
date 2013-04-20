@@ -2,6 +2,21 @@ var Jiggly = (function() {
 	var duration = 0;
 	var duty = 0;
 	var timeout = null;
+	var html5buffer = null;
+	var audio = null;
+
+	var runHTML5AudioDutyCycle = function () {
+		if(html5buffer === null) {
+			var data = []; // just an array
+			for (var i=0; i<100000; i++) data[i] = Math.round(255 * Math.random()); // fill data with random samples
+			html5buffer = new RIFFWAVE(data); // create the html5buffer file
+			audio = new Audio(html5buffer.dataURI); // create the HTML5 audio element
+			audio.volume = 0;
+			audio.loop = true;
+			audio.play(); // some noise		
+		}
+		audio.volume = duty * 0.01;
+	};
 
 	var runWebVibrationDutyCycle = function () {
 		if (duration == 0 || duty == 0) {
@@ -35,7 +50,7 @@ var Jiggly = (function() {
 			}
 		},
 
-		runDutyCycle : runWebVibrationDutyCycle,
+		runDutyCycle : runHTML5AudioDutyCycle,
 
 		runSpeed : function(aDuty, aDuration) {
 			duty = aDuty;
