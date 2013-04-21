@@ -58,7 +58,9 @@ Noton collection totally confirms it.)
 
 On Desktop:
 
-  - Not happening in anything unless you write your own HAL access
+  - Not happening in anything unless you write your own HAL access.
+    Makes one think that most people don't have vibrators on the
+    desktop computers. Why on earth would they miss out?
 
 On Mobile:
 
@@ -75,14 +77,14 @@ core since it supports both HTML5 and WebAudio.
 
 On Desktop:
 
-  - Chrome: works great
+  - Chrome: Works!
   - Firefox: Audio through Firefox seems to be glitchy as hell on both
     OS X and linux, aurora and nightly. SOMEONE SHOULD REALLY FIX THAT.
 
 On Mobile:
 
-  - Firefox Mobile: Works in a rather janktastic way. Lots of
-    glitching on audio loops.
+  - Firefox Mobile: No luck in beta. Nightly works in a rather
+    janktastic way. Lots of glitching on audio loops.
   - Android Browser: Sometimes works? Cuts out a lot.
   - Chrome for Android: Sound for a second, then nothing.
   - Safari: Haven't tried it yet
