@@ -36,11 +36,11 @@ var Jiggly = (function() {
 	return {
 		// Make output methods bit flags since we can feasibly run more
 		// than 1 at once.
-		outputMethods : { WEBVIBRATION			: 1,
-											HTML5AUDIO				: 2,
-											WEBAUDIO					: 4},
+    outputMethods : { WEBVIBRATION      : 1,
+                      HTML5AUDIO        : 2,
+                      WEBAUDIO          : 4},
 
-		setOutputMethod : function (o) {
+    setOutputMethod : function (o) {
 			if(!navigator.vibrate && (o & this.outputMethods.WEBVIBRATION)) {
 				console.log("WebVibration not supported!");
 				o = o & ~this.outputMethods.WEBVIBRATION;
