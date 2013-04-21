@@ -90,7 +90,7 @@ On Mobile:
 
 ## Using the Jiggly.js API ##
 
-Jiggly.js currently only has three calls available:
+Jiggly.js currently only has two usable calls available:
 
 ```javascript
 Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION);
@@ -119,6 +119,8 @@ Finally, you can use both by AND'ing the flags.
 Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION | Jiggly.outputMethods.HTML5AUDIO);
 Jiggly.runSpeed(80, 100);
 ```
+
+This API will most likely expand if/when/as I give a shit.
 
 ## Power Level Caveats ##
 
