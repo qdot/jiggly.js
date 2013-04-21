@@ -10,9 +10,10 @@ Jiggly.js is a javascript library all about making things jiggly.
 However, most times you'd think that'd mean making DOM elements
 jiggly.
 
-However, we're talking physical vibration here. This library has the
-hopes of being the first javascript library you'll want to rub
-yourself against.
+I'm talking about physical vibration. This library has the hopes of
+being the first javascript library you'll want to rub yourself against
+(and will also actually be able to. Don't think I don't know how you
+fantasize about JS libraries.).
 
 There's already the
 [The Web Vibration API](http://www.w3.org/TR/vibration/), but it only
@@ -37,56 +38,104 @@ trigger vibrations, and provide a common API for all of these systems
 for setting speed and relaying patterns. After configuring output
 methods, all API calls to Jiggly.js should look and react similarly.
 
+## Requirements ##
+
+First off, you're going to need something to vibrate. This requires:
+
+- A Web Browser (see below for browser requirements)
+- OPTIONAL - An Android phone running ICS (for WebVibration)
+- OPTIONAL - A audio activated vibrator like the
+  [OhMiBod](http://ohmibod.com) (for Audio Vibration)
+
+If you have both, then lucky you! You can actually run both at once.
+If you have neither of the optional, then, uh, enjoy listening to sine
+waves? Maybe you're into that sort of thing? (I totally am. My Raster
+Noton collection totally confirms it.)
+
+## Browser Support ##
+
+### WebVibration Core ###
+
+On Desktop:
+
+  - Not happening in anything unless you write your own HAL access
+
+On Mobile:
+
+  - Firefox Mobile: Works!
+  - Android Browser: Nope
+  - Chrome for Android: Nope
+  - Safari: HAHAHAHAHAHAHA Nope and probably never will
+  - Opera: ?
+
+### HTML5Audio Core ###
+
+Using [Howler.js](https://github.com/goldfire/howler.js) for our audio
+core since it supports both HTML5 and WebAudio.
+
+On Desktop:
+
+  - Chrome: works great
+  - Firefox: Audio through Firefox seems to be glitchy as hell on both
+    OS X and linux, aurora and nightly. SOMEONE SHOULD REALLY FIX THAT.
+
+On Mobile:
+
+  - Firefox Mobile: Works in a rather janktastic way. Lots of
+    glitching on audio loops.
+  - Android Browser: Sometimes works? Cuts out a lot.
+  - Chrome for Android: Sound for a second, then nothing.
+  - Safari: Haven't tried it yet
+  - Opera: ?
+
 ## Using the Jiggly.js API ##
 
 Jiggly.js currently only has three calls available:
 
 ```javascript
-Jiggly.setOutputMode(Jiggly.WEBVIBRATE);
-Jiggly.setDuration(100);
-Jiggly.runPattern([(100, 20), (200, 50)]);
+Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION);
+Jiggly.runSpeed(80, 100);
 ```
 
-Looks pretty much like WebVibration, right? The difference is, instead
-of striding the array with On/Off times, it's now (Time, Duty Cycle).
-We'll run for 100ms at 20% duty cycle, then 200ms at 50% duty cycle.
-
-If we want to get REALLY crazy, we can even vary our duration:
-
-```javascript
-Jiggly.setOutputMode(Jiggly.WEBVIBRATE);
-Jiggly.runPattern([(100, 20, 50), (200, 50, 80)]);
-```
-
-Now we'd run for 100ms at 20% duty cycle on a 50ms duration (10ms on,
-40ms off), then 200ms at 50% duty cycle on a 80ms duration (40ms on,
-40ms off).
+This uses the webvibration output method, with a cycle duration of
+100ms, and a duty cycle of 80%. So, 80ms on, 20ms off.
 
 For audio, things look mostly the same.
 
 ```javascript
-Jiggly.setOutputMode(Jiggly.WEBAUDIO); // Can also be Jiggly.HTML5AUDIO
-Jiggly.vibrate([(100, 20), (200, 50)]);
+Jiggly.setOutputMode(Jiggly.HTML5AUDIO);
+Jiggly.runSpeed(80);
 ```
 
-Same as before, except our duty cycle here isn't specifically duty
-cycle. It is still considered to be "percentage power", though.
+Same as before, except our duty cycle here isn't specifically a duty
+cycle (see explanation later if you care, otherwise trust me it
+works). We also don't need a duration because aforementioned reasons
+about later mentioned reasons. The first argument is still considered
+to be "percentage power", though.
 
-Finally, you can just set a speed to run until another speed is sent.
+Finally, you can use both by AND'ing the flags.
 
 ```javascript
-// runSpeed(duty percentage, duration (optional))
-Jiggly.runSpeed(50, 25);
+Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION | Jiggly.outputMethods.HTML5AUDIO);
+Jiggly.runSpeed(80, 100);
 ```
+
+## Power Level Caveats ##
 
 For anyone asking "But that means I can only get 100 steps of power!":
 
-Yes. This is a totally unproven and probably broken way of triggering
+Yes. This is a totally unproven and very jank ass way of triggering
 vibration through a system not made to give you the guarantees you'd
-need in timing for more steps than that. So shut up and enjoy it.
+need in timing for more steps than that.
 
-And yes I realize WebAudio give you far more fidelity but really read
-the last sentence of the last paragraph again.
+If you're working with WebVibration, your cycle durations probably
+won't be higher than 50ms anyways, and since we only have millisecond
+fidelity, we don't even *HAVE* 100 steps. So shut up and enjoy what
+you get.
+
+And yes I realize WebAudio and the HTML5 audio core give you far more
+fidelity but really read the last sentence of the last paragraph
+again.
 
 ## How Jiggly.js Works ##
 
