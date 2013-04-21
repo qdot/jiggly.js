@@ -30,7 +30,7 @@ var Jiggly = (function() {
 		navigator.vibrate(pattern);
 		// Restart pattern slighly before it's done. Doesn't completely
 		// allieviate pauses, but helps
-		timeout = window.setTimeout(runWebVibrationDutyCycle, (128 * duration) * .9);
+		timeout = window.setTimeout(runWebVibrationDutyCycle, (64 * duration) * .9);
 	};
 
 	return {
