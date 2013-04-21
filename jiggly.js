@@ -4,6 +4,7 @@ var Jiggly = (function() {
   var duty = 0;
   var timeout = null;
   var audio = null;
+	var pattern = new Array();
 
   var runHTML5AudioDutyCycle = function () {
     if(audio === null) {
@@ -21,19 +22,15 @@ var Jiggly = (function() {
 		}
 		var on_time = (duty * .01) * duration;
 		var off_time = duration - on_time;
-		var t = 0;
-		var pattern = new Array();
-		var step = 0;
-		while (step < 128) {
+		pattern = [];
+		for (var step = 0; step < 128; step = step + 2) {
 			pattern[step + 0] = on_time;
 			pattern[step + 1] = off_time;
-			step = step + 2;
-			t = t + duration;
 		};
 		navigator.vibrate(pattern);
 		// Restart pattern slighly before it's done. Doesn't completely
 		// allieviate pauses, but helps
-		timeout = window.setTimeout(runWebVibrationDutyCycle, t * .9);
+		timeout = window.setTimeout(runWebVibrationDutyCycle, (128 * duration) * .9);
 	};
 
 	return {
