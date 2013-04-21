@@ -1,4 +1,5 @@
 var Jiggly = (function() {  
+	var output = 0;
   var duration = 0;
   var duty = 0;
   var timeout = null;
@@ -32,24 +33,31 @@ var Jiggly = (function() {
 		navigator.vibrate(pattern);
 		// Restart pattern slighly before it's done. Doesn't completely
 		// allieviate pauses, but helps
-		timeout = window.setTimeout(Jiggly.runDutyCycle, t * .9);
+		timeout = window.setTimeout(runWebVibrationDutyCycle, t * .9);
 	};
 
 	return {
-		outputMethods : { WEBVIBRATOR				: 0,
-											HTML5AUDIO				: 1,
-											WEBAUDIO					: 2},
+		// Make output methods bit flags since we can feasibly run more
+		// than 1 at once.
+		outputMethods : { WEBVIBRATION			: 1,
+											HTML5AUDIO				: 2,
+											WEBAUDIO					: 4},
 
-		setOutputMethod : function (output) {
-			if (output == WEBVIBRATOR) {
-				Jiggly.runDutyCycle = runWebVibratorDutyCycle;
-			} else if (output == HTML5AUDIO) {
-				Jiggly.runDutyCycle = runHTML5AudioDutyCycle;
-			} else if (output == WEBAUDIO) {
-			}
+		setOutputMethod : function (o) {
+			output = o;
 		},
 
-		runDutyCycle : runHTML5AudioDutyCycle,
+		runDutyCycle : function() {
+			if ((output & this.outputMethods.WEBVIBRATION) > 0) {
+				runWebVibrationDutyCycle();
+			} 
+			if ((output & this.outputMethods.HTML5AUDIO) > 0) {
+				runHTML5AudioDutyCycle();
+			} 
+			if ((output & this.outputMethods.WEBAUDIO) > 0) {
+				// Implement this as an oscillator generator at some point
+			}
+		},
 
 		runSpeed : function(aDuty, aDuration) {
 			duty = aDuty;
