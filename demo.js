@@ -3,6 +3,11 @@ $(document).ready(function() {
 	var duty = 0;
 	var duration = 0;
 
+	if(!navigator.vibrate) {
+		$("#WebVibrationOutput").prop('disabled', true);
+		$("#WebVibrationText").html("WebVibration not supported on this browser");
+	}
+
 	$("#WebVibrationOutput").bind("change", function() {
 		if($("#WebVibrationOutput").prop('checked')) {
 			outputMethod = outputMethod | Jiggly.outputMethods.WEBVIBRATION;

@@ -8,7 +8,7 @@ var Jiggly = (function() {
 
   var runHTML5AudioDutyCycle = function () {
     if(audio === null) {
-      audio = new Howl({urls : ["http://192.168.123.75:4000/200hz.wav"], 
+      audio = new Howl({urls : ["200hz.wav"], 
         								loop: true,
 												autoplay: true,
 												volume: 0.0}).play();
@@ -41,6 +41,10 @@ var Jiggly = (function() {
 											WEBAUDIO					: 4},
 
 		setOutputMethod : function (o) {
+			if(!navigator.vibrate && (o & this.outputMethods.WEBVIBRATION)) {
+				console.log("WebVibration not supported!");
+				o = o & ~this.outputMethods.WEBVIBRATION;
+			}
 			output = o;
 		},
 
