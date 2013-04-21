@@ -1,6 +1,7 @@
 # Jiggly.js #
 
 By Kyle Machulis <kyle@nonpolynomial.com>
+
 [http://www.nonpolynomial.com](http://www.nonpolynomial.com)
 
 ## Description ##
@@ -40,11 +41,11 @@ methods, all API calls to Jiggly.js should look and react similarly.
 
 Jiggly.js currently only has three calls available:
 
-`
+```javascript
 Jiggly.setOutputMode(Jiggly.WEBVIBRATE);
 Jiggly.setDuration(100);
 Jiggly.runPattern([(100, 20), (200, 50)]);
-`
+```
 
 Looks pretty much like WebVibration, right? The difference is, instead
 of striding the array with On/Off times, it's now (Time, Duty Cycle).
@@ -52,10 +53,10 @@ We'll run for 100ms at 20% duty cycle, then 200ms at 50% duty cycle.
 
 If we want to get REALLY crazy, we can even vary our duration:
 
-`
+```javascript
 Jiggly.setOutputMode(Jiggly.WEBVIBRATE);
 Jiggly.runPattern([(100, 20, 50), (200, 50, 80)]);
-`
+```
 
 Now we'd run for 100ms at 20% duty cycle on a 50ms duration (10ms on,
 40ms off), then 200ms at 50% duty cycle on a 80ms duration (40ms on,
@@ -63,20 +64,20 @@ Now we'd run for 100ms at 20% duty cycle on a 50ms duration (10ms on,
 
 For audio, things look mostly the same.
 
-`
+```javascript
 Jiggly.setOutputMode(Jiggly.WEBAUDIO); // Can also be Jiggly.HTML5AUDIO
 Jiggly.vibrate([(100, 20), (200, 50)]);
-`
+```
 
 Same as before, except our duty cycle here isn't specifically duty
 cycle. It is still considered to be "percentage power", though.
 
 Finally, you can just set a speed to run until another speed is sent.
 
-`
+```javascript
 // runSpeed(duty percentage, duration (optional))
 Jiggly.runSpeed(50, 25);
-`
+```
 
 For anyone asking "But that means I can only get 100 steps of power!":
 
@@ -101,9 +102,9 @@ which is the output method that's going to be available to most users.
 A quick refresher in the WebVibration API for those not familiar. It's
 quite simple:
 
-`
+```javascript
 navigator.vibrate([200, 100, 1000, 100]);
-`
+```
 
 Vibrate is the only function exposed by the WebVibration API. It takes
 either an int, or an array of ints, representing milliseconds. For the
