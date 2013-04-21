@@ -12,17 +12,18 @@
 	<body>
     <h1>Jiggly.js Test Website</h1>
     <div>
+      <div><h2>Output Options</h2></div>
+      <div><input type="checkbox" id="WebVibrationOutput" />WebVibration</div>
+      <div><input type="checkbox" id="HTML5AudioOutput" />Audio</div>
       <div>
+        <h2>Duration Setting (WebVibration Only)</h2>
         <input id="durationSlider" type="range" value="0" min="0" max="100" step="1" />
+        <input id="durationDisplay" type="text" size="4"/>
       </div>
       <div>
-        <input id="durationDisplay" type="text" />
-      </div>
-      <div>
+        <h2>Duty Cycle (Speed) Setting</h2>
         <input id="dutySlider" type="range" value="0" min="0" max="100" step="1" />
-      </div>
-      <div>
-        <input id="dutyDisplay" type="text" />
+        <input id="dutyDisplay" type="text" size="4"/>
       </div>
     </div>
 	</body>

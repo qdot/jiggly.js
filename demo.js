@@ -1,8 +1,25 @@
 $(document).ready(function() {
-	var duration = 0;
+	var outputMethod = 0;
 	var duty = 0;
+	var duration = 0;
 
-	Jiggly.setOutputMethod(Jiggly.outputMethods.WEBVIBRATION | Jiggly.outputMethods.HTML5AUDIO);
+	$("#WebVibrationOutput").bind("change", function() {
+		if($("#WebVibrationOutput").prop('checked')) {
+			outputMethod = outputMethod | Jiggly.outputMethods.WEBVIBRATION;
+		} else {
+			outputMethod = outputMethod & ~Jiggly.outputMethods.WEBVIBRATION;
+		}
+		Jiggly.setOutputMethod(outputMethod);
+	});
+
+	$("#HTML5AudioOutput").bind("change", function() {
+		if($("#HTML5AudioOutput").prop('checked')) {
+			outputMethod = outputMethod | Jiggly.outputMethods.HTML5AUDIO;
+		} else {
+			outputMethod = outputMethod & ~Jiggly.outputMethods.HTML5AUDIO;
+		}
+		Jiggly.setOutputMethod(outputMethod);
+	});
 
   $("#durationSlider").bind("change",function() {
     $("#durationDisplay").val( $("#durationSlider").val() + "ms");
