@@ -32,9 +32,18 @@ $(document).ready(function() {
 		Jiggly.runSpeed(duty, duration);
   });
 
-  $("#dutySlider").change(function() {
+  $("#dutySlider").bind("change", function() {
     $("#dutyDisplay").val( $("#dutySlider").val() + "%");
 		duty = parseInt($("#dutySlider").val());
 		Jiggly.runSpeed(duty, duration);
+	});
+
+	$("#rampButton").click(function() {
+		var a = [];
+		for(var i = 0; i <= 10; i += 1) {
+			a[i] = [i * 10, 100, 50];
+			a[19-i] = [i * 10, 100, 50];
+		}
+		Jiggly.runPattern(a);
 	});
 });

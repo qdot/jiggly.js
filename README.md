@@ -92,7 +92,20 @@ On Mobile:
 
 ## Using the Jiggly.js API ##
 
-Jiggly.js currently only has two usable calls available:
+Jiggly.js only has three usable calls:
+
+- Jiggly.setOutputMode(mode) - Sets the whether we should use
+  WebVibration, Audio, both, neither, etc...
+- Jiggly.runSpeed(power, cycle duration (optional)) - Run at a certain
+  power level until called again. For WebVibration, you can also set
+  the cycle duration. Read examples and "how it works" for explanation
+  of cycles.
+- Jiggly.runPattern([[power, time, cycle duration], ...]) - Similar to
+  how WebVibration works, except now with power AND time as part of
+  the pattern instead of just on/off. Cycle duration can be set per
+  pattern element.
+  
+### Examples ###
 
 ```javascript
 Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION);
@@ -122,7 +135,21 @@ Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION | Jiggly.outputMethods.HT
 Jiggly.runSpeed(80, 100);
 ```
 
-This API will most likely expand if/when/as I give a shit.
+For patterns:
+
+```javascript
+Jiggly.setOutputMode(Jiggly.outputMethods.WEBVIBRATION | Jiggly.outputMethods.HTML5AUDIO);
+Jiggly.runPattern([80, 100, 50], [10, 50, 100], [0, 0, 0]);
+```
+
+This runs a pattern of:
+
+- 80% power, for 100ms, with a 50ms cycle duration, then
+- 10% power, for 50ms, with a 100ms cycle duration, then
+- Turning things off, basically.
+
+The Jiggly.js API will most likely expand/change if/when/as I give a
+shit.
 
 ## Power Level Caveats ##
 

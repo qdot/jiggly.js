@@ -2,35 +2,71 @@ var Jiggly = (function() {
   var output = 0;
   var duration = 0;
   var duty = 0;
-  var timeout = null;
-  var audio = null;
-  var pattern = new Array();
+  var dc_timeout = null;
+  var pattern_timeout = undefined;
+  var audio = undefined;
+  var pwm_pattern = new Array();
+	var user_pattern = undefined;
+
+	var setNewPattern = function (aPattern) {
+		if (pattern_timeout !== undefined) {
+			window.clearTimeout(pattern_timeout);
+		}
+		if (dc_timeout !== undefined) {
+			window.clearTimeout(dc_timeout);
+		}
+		user_pattern = aPattern;
+		user_pattern.reverse();
+		cyclePattern();
+	};
+
+	var cyclePattern = function() {
+		if(user_pattern !== undefined && user_pattern.length == 0) {
+			pattern_timeout = undefined;
+			return;
+		}
+		var current = user_pattern.pop();
+		// duration value set
+		if(current.length == 3) {
+			duration = current[2];
+		}
+		duty = current[0];
+		Jiggly.runDutyCycle();
+		pattern_timeout = window.setTimeout(cyclePattern, current[1]);
+	};
 
   var runHTML5AudioDutyCycle = function () {
-    if(audio === null) {
+    if(audio === undefined) {
       audio = new Howl({urls : ["200hz.wav"], 
                         loop: true,
                         autoplay: true,
                         volume: 0.0}).play();
     }
-    audio.volume(duty * 0.01);
+		console.log(duty);
+		if(duty == 0) {
+			Howler.mute();
+		} else {
+			audio.volume(duty * 0.01);
+			Howler.unmute();
+		}
   };
 
   var runWebVibrationDutyCycle = function () {
-    if (duration == 0 || duty == 0) {
-      return;
-    }
-    var on_time = (duty * .01) * duration;
-    var off_time = duration - on_time;
-    pattern = [];
-    for (var step = 0; step < 128; step = step + 2) {
-      pattern[step + 0] = on_time;
-      pattern[step + 1] = off_time;
-    };
-    navigator.vibrate(pattern);
+		if(duty == 0) {
+			navigator.vibrate([0]);
+		} else {
+			var on_time = (duty * .01) * duration;
+			var off_time = duration - on_time;
+			pwm_pattern = [];
+			for (var step = 0; step < 128; step = step + 2) {
+				pwm_pattern[step + 0] = on_time;
+				pwm_pattern[step + 1] = off_time;
+			};
+			navigator.vibrate(pwm_pattern);
+		}
     // Restart pattern slighly before it's done. Doesn't completely
     // allieviate pauses, but helps
-    timeout = window.setTimeout(runWebVibrationDutyCycle, (64 * duration) * .9);
+    dc_timeout = window.setTimeout(runWebVibrationDutyCycle, (64 * duration) * .9);
   };
 
   return {
@@ -67,10 +103,14 @@ var Jiggly = (function() {
       } else {
         duration = aDuration;
       }
-      if (timeout) {
-        window.clearTimeout(timeout);
+      if (dc_timeout) {
+        window.clearTimeout(dc_timeout);
       }
       Jiggly.runDutyCycle();
+    },
+
+    runPattern : function(aPattern) {
+			setNewPattern(aPattern);
     }
   };
 })();
