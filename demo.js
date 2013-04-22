@@ -27,13 +27,13 @@ $(document).ready(function() {
 	});
 
   $("#durationSlider").bind("change",function() {
-    $("#durationDisplay").val( $("#durationSlider").val() + "ms");
+    $("#durationDisplay").html( $("#durationSlider").val() + "ms");
 		duration = parseInt($("#durationSlider").val());
 		Jiggly.runSpeed(duty, duration);
   });
 
   $("#dutySlider").bind("change", function() {
-    $("#dutyDisplay").val( $("#dutySlider").val() + "%");
+    $("#dutyDisplay").html( $("#dutySlider").val() + "%");
 		duty = parseInt($("#dutySlider").val());
 		Jiggly.runSpeed(duty, duration);
 	});

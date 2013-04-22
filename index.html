@@ -12,6 +12,7 @@
 	<body>
     <h1>Jiggly.js Test Website</h1>
     <div><p>Get it now! <a href="http://www.github.com/qdot/jiggly.js">http://www.github.com/qdot/jiggly.js</a></p></div>
+    <div><img src='jiggly.jpg' alt="jiggly"/></div>
     <div>
       <div><h2>Output Options</h2></div>
       <div><input type="checkbox" id="WebVibrationOutput" /><p style="display:inline;" id="WebVibrationText">WebVibration</p></div>
@@ -19,12 +20,12 @@
       <div>
         <h2>Duration Setting (WebVibration Only)</h2>
         <input id="durationSlider" type="range" value="0" min="0" max="100" step="1" />
-        <input id="durationDisplay" type="text" size="4"/>
+        <p id="durationDisplay"  style="display:inline;">0ms</p>
       </div>
       <div>
         <h2>Duty Cycle (Speed) Setting</h2>
         <input id="dutySlider" type="range" value="0" min="0" max="100" step="1" />
-        <input id="dutyDisplay" type="text" size="4"/>
+        <p id="dutyDisplay" style="display:inline;">0%</p>
       </div>
       <div>
         <h2>Patterns</h2>
