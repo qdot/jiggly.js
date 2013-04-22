@@ -68,7 +68,8 @@ On Mobile:
   - Android Browser: Nope
   - Chrome for Android: Nope
   - Safari: HAHAHAHAHAHAHA Nope and probably never will
-  - Opera: ?
+  - Opera: Not tested
+  - Windows Phone: Not tested
 
 ### HTML5Audio Core ###
 
@@ -78,8 +79,9 @@ core since it supports both HTML5 and WebAudio.
 On Desktop:
 
   - Chrome: Works!
-  - Firefox: Audio through Firefox seems to be glitchy as hell on both
-    OS X and linux, aurora and nightly. SOMEONE SHOULD REALLY FIX THAT.
+  - Firefox: Audio looping through Firefox seems to be glitchy on both
+    OS X and linux, aurora and nightly. May still work, but not perfect.
+  - IE: Not tested
 
 On Mobile:
 
@@ -87,8 +89,9 @@ On Mobile:
     janktastic way. Lots of glitching on audio loops.
   - Android Browser: Sometimes works? Cuts out a lot.
   - Chrome for Android: Sound for a second, then nothing.
-  - Safari: Haven't tried it yet
-  - Opera: ?
+  - Safari: Not tested
+  - Opera: Not tested
+  - windows Phone: Not tested
 
 ## Using the Jiggly.js API ##
 
