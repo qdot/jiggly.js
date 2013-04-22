@@ -201,26 +201,41 @@ turn a motor on and off? Answering this requires a bit of background
 in how digitally controlled motors work.
 
 What we're going to do is create our own Pulse Width Modulation (PWM).
-PWM is a way of setting the speed of a motor by turning its power
-source on and off very, very quickly (technically known as "setting
-and varying the duty cycle"). If you want a motor to run at 70% duty
-cycle (so 70% of its full capacity for a non-existantly perfect motor
-but shut up this is an example), you turn the power on for 70% of a
-certain duration, off for 30%. So let's say our duration is 1
-second. We'd have power on for 700ms, off for 300ms. Easy, right?
+PWM (in this specific case, as it can be used for lots of things) is a
+way of setting the speed of a motor by turning its power source on and
+off very, very quickly (technically known as "setting the duty
+cycle"). If you want a motor to run at 70% duty cycle (so 70% of its
+full capacity for a non-existantly perfect motor but shut up this is
+an example), you turn the power on for 70% of a certain duration, off
+for 30%. So let's say our duration is 1 second. We'd have power on for
+700ms, off for 300ms. Easy, right?
 
 Except for the fact that durations on microcontrollers are usually in
-the milliseconds range if not less. The maximum resolution we can get
-with WebVibration is _technically_ 1 millisecond, but this is not at
-all a real time guarantee. We also have to factor in the javascript
-scheduler, the communications with the IO thread that is talking to
-the hardware in the browser core, and so on. So all we're guaranteed
-is that, at some point after 1ms, things will change.
+submilliseconds range, and fairly accurately timed compared to what we
+get being in javascript on top of another language. The maximum
+resolution we can get with WebVibration is _technically_ 1
+millisecond, but this is not at all a real time guarantee. We also
+have to factor in the javascript scheduler, the communications with
+the IO thread that is talking to the hardware in the browser core, and
+so on. So all we're guaranteed is that, at some point after 1ms,
+things will change.
 
 Shit.
 
-Now we get into physics. 
+This fact doesn't really end our hopes, just lessens them slightly.
+This is due to the fact that we're running a motor with a load
+attached to it. Since there's a weight attached to the motor (which is
+what makes it vibrate since it's spinning and constantly moving the
+center of gravity), it takes multiple milliseconds to spin up, and
+multiple milliseconds to spin down again. That means that we've got
+enough time in javascript to turn off power before the motor gets
+going at full speed, then turn it back on before it stops. The
+vibration that happens via these means may not be smooth, but we will
+at least get some approximation of speeds, and possibly some
+interesting textures.
 
 ### Audio Vibrator Control ###
 
-This is where the discussion of how audio vibration works goes.
+This is where the discussion of how audio vibration works goes once I
+have time to write it. For now, just know it's a volume controller and
+that's it. It really is that simple.
