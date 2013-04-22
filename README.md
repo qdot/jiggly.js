@@ -2,6 +2,8 @@
 
 By Kyle Machulis <kyle@nonpolynomial.com>
 
+Twitter: [@qdot](http://www.twitter.com/qdot)
+
 [http://www.nonpolynomial.com](http://www.nonpolynomial.com)
 
 ## Description ##
