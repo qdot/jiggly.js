@@ -222,8 +222,20 @@ is that, at some point after 1ms, things will change.
 
 Shit.
 
-Now we get into physics. 
+This fact doesn't really end our hopes, just lessens them slightly.
+This is due to the fact that we're running a motor with a load
+attached to it. Since there's a weight attached to the motor (which is
+what makes it vibrate since it's spinning and constantly moving the
+center of gravity), it takes multiple milliseconds to spin up, and
+multiple milliseconds to spin down again. That means that we've got
+enough time in javascript to turn off power before the motor gets
+going at full speed, then turn it back on before it stops. The
+vibration that happens via these means may not be smooth, but we will
+at least get some approximation of speeds, and possibly some
+interesting textures.
 
 ### Audio Vibrator Control ###
 
-This is where the discussion of how audio vibration works goes.
+This is where the discussion of how audio vibration works goes once I
+have time to write it. For now, just know it's a volume controller and
+that's it. It really is that simple.
