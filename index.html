@@ -1,15 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
-	<head>
-		<title>Jiggly.js Test Page</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+    <title>Jiggly.js Test Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
-    <script type="text/javascript" src="html5slider.js"></script>
     <script type="text/javascript" src="howler.js"></script>
     <script type="text/javascript" src="jiggly.js"></script>
     <script type="text/javascript" src="demo.js"></script>
-	</head>
-	<body>
+    <script src="modernizr-custom.js"></script>
+    <script>
+      // Set up the yepnope (Modernizr.load) directives...
+      Modernizr.load([
+      {
+      // Test if Input Range is supported using Modernizr
+      test: Modernizr.inputtypes.range,
+      // If ranges are not supported, load the slider script and CSS file
+      nope: [
+      // The slider CSS file
+      'fd-slider.mhtml.min.css'
+      // The slider JS file
+      ,'fd-slider.js'
+      ],
+      callback: function(id, testResult) {
+      // If the slider file has loaded then fire the onDomReady event
+      if("fdSlider" in window && typeof (fdSlider.onDomReady) != "undefined") {
+      try { fdSlider.onDomReady(); } catch(err) {};
+      };
+      }
+      }
+      ]);
+  </script>  </head>
+  <body>
     <h1>Jiggly.js Test Website</h1>
     <div><p>A javascript library you can actually rub yourself against, instead of just wishing you could.</p></div>
     <div><p>Get it now! <a href="http://www.github.com/qdot/jiggly.js">http://www.github.com/qdot/jiggly.js</a></p></div>
@@ -33,5 +54,5 @@
         <input id="rampButton" type="button" value="Single Ramp"/>
       </div>
     </div>
-	</body>
+  </body>
 </html>
